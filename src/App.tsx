@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { ITodo } from "./app.interface";
 
 const todoId = 1;
 
@@ -6,9 +8,8 @@ function App() {
   const { isError, isPending, data, error, isSuccess } = useQuery({
     queryKey: ["todos", todoId],
     queryFn: () =>
-      fetch(`https://jsonplaceholder.typicode.com/todos/1`).then((response) =>
-        response.json()
-      ),
+      axios.get<ITodo>(`https://jsonplaceholder.typicode.com/todos/1`),
+    select: ({ data }) => data,
   });
 
   if (isPending) {
