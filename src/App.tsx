@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ITodo } from "./app.interface";
 import todoService from "./services/todo.service";
+import { useEffect } from "react";
 
 const todoId = 1;
 
@@ -11,6 +12,9 @@ function App() {
     queryFn: () => todoService.getAll(),
     select: ({ data }) => data,
   });
+
+  // useEffect(() => alert(error), [isError]);
+  useEffect(() => alert(data), [data]);
 
   if (isLoading) {
     return <span>Loading...</span>;
