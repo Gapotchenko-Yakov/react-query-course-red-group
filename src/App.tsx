@@ -1,4 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 import { ITodo } from "./app.interface";
 import todoService from "./services/todo.service";
@@ -10,6 +15,7 @@ const todoId = 1;
 function App() {
   const { isError, isLoading, refetch, data, error, isSuccess } = useTodos();
 
+  const queryClient = useQueryClient();
   // useEffect(() => alert(error), [isError]);
   // useEffect(() => alert(data), [data]);
 
@@ -28,7 +34,11 @@ function App() {
 
   return (
     <div>
-      <button onClick={() => refetch()}>Refresh</button>
+      <button
+        onClick={() => queryClient.invalidateQueries({ queryKey: ["todos"] })}
+      >
+        Refresh
+      </button>
       {isLoading ? (
         <span>Loading...</span>
       ) : isError ? (
