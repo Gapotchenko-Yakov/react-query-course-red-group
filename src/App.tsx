@@ -3,17 +3,12 @@ import axios from "axios";
 import { ITodo } from "./app.interface";
 import todoService from "./services/todo.service";
 import { useEffect } from "react";
+import { useTodos } from "./hooks/useTodos";
 
 const todoId = 1;
 
 function App() {
-  const { isError, isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => todoService.getAll(),
-    select: ({ data }) => data,
-    // enabled: false,
-    retry: 10,
-  });
+  const { isError, isLoading, data, error, isSuccess } = useTodos();
 
   // useEffect(() => alert(error), [isError]);
   // useEffect(() => alert(data), [data]);
