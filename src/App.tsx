@@ -11,10 +11,12 @@ function App() {
     queryKey: ["todos"],
     queryFn: () => todoService.getAll(),
     select: ({ data }) => data,
+    // enabled: false,
+    retry: 10,
   });
 
   // useEffect(() => alert(error), [isError]);
-  useEffect(() => alert(data), [data]);
+  // useEffect(() => alert(data), [data]);
 
   if (isLoading) {
     return <span>Loading...</span>;
