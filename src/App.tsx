@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ITodo } from "./app.interface";
 import todoService from "./services/todo.service";
@@ -8,10 +8,15 @@ import { useTodos } from "./hooks/useTodos";
 const todoId = 1;
 
 function App() {
-  const { isError, isLoading, data, error, isSuccess } = useTodos();
+  const { isError, isLoading, refetch, data, error, isSuccess } = useTodos();
 
   // useEffect(() => alert(error), [isError]);
   // useEffect(() => alert(data), [data]);
+
+  const {} = useMutation({
+    mutationKey: ["delete", todoId],
+    mutationFn: () => axios.delete(""),
+  });
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -23,7 +28,12 @@ function App() {
 
   return (
     <div>
-      {data?.length ? (
+      <button onClick={() => refetch()}>Refresh</button>
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : isError ? (
+        <span>Error: {error}</span>
+      ) : data?.length ? (
         data?.map((todo) => (
           <div>
             <b>{todo.id}</b>
