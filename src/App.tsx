@@ -1,28 +1,12 @@
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { ITodo } from "./app.interface";
-import todoService from "./services/todo.service";
-import { useEffect } from "react";
-import { useTodos } from "./hooks/useTodos";
 
-const todoId = 1;
+import { useTodos } from "./hooks/useTodos";
 
 function App() {
   const { isError, isLoading, refetch, data, error, isSuccess } = useTodos();
 
   const queryClient = useQueryClient();
-  // useEffect(() => alert(error), [isError]);
-  // useEffect(() => alert(data), [data]);
-
-  const {} = useMutation({
-    mutationKey: ["delete", todoId],
-    mutationFn: () => axios.delete(""),
-  });
 
   if (isLoading) {
     return <span>Loading...</span>;
